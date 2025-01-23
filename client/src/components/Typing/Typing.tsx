@@ -22,7 +22,7 @@ const Typing: React.FC = () => {
     console.log(message);
   };
   return (
-    <div className="flex items-center w-full gap-2 border-t border-gray-200 p-4 bg-violet-400">
+    <div className="flex items-center w-full gap-2 p-4">
       <input
         className="flex-1 rounded-full border border-gray-300 text-gray-500 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ease-in-out"
         type="text"

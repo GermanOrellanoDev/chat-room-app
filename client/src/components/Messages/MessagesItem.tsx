@@ -1,12 +1,14 @@
 interface MessagesItemProps {
   userId: number;
+  nickname: string;
   content: string;
   sender: string;
   timestamp: Date;
 }
 
 const MessagesItem: React.FC<MessagesItemProps> = ({
-  userId,
+  /* userId, */
+  nickname,
   content,
   sender,
   timestamp,
@@ -27,6 +29,9 @@ const MessagesItem: React.FC<MessagesItemProps> = ({
             : "bg-gray-300 text-gray-800 rounded-bl-none"
         }`}
       >
+        <small className="font-bold text-xs underline text-blue-950">
+          {nickname}
+        </small>
         <p>{content}</p>
         <small className="text-gray-300 text-xs">
           {new Date(timestamp).toLocaleTimeString()}

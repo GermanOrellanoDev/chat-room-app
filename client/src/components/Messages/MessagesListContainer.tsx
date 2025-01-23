@@ -5,7 +5,13 @@ import { io } from "socket.io-client";
 
 const socket = io("http://localhost:8080"); //cambiar a URL
 
-const MessagesListContainer: React.FC = () => {
+interface MessagesListContainerProps {
+  nickname: string;
+}
+
+const MessagesListContainer: React.FC<MessagesListContainerProps> = ({
+  nickname,
+}: MessagesListContainerProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -21,7 +27,7 @@ const MessagesListContainer: React.FC = () => {
   return (
     <>
       <div className="flex flex-col bg-white border rounded-lg w-full h-full">
-        <MessagesList messages={messages} />
+        <MessagesList messages={messages} nickname={nickname} />
       </div>
     </>
   );
