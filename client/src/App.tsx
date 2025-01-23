@@ -1,32 +1,15 @@
-import { useState } from "react";
-import "./App.css";
 import MessagesListContainer from "./components/Messages/MessagesListContainer";
-import { io } from "socket.io-client";
-
-const socket = io("http://localhost:8080");
+import Typing from "./components/Typing/Typing";
 
 const App: React.FC = () => {
-  const [message, setMessage] = useState("");
-
-  const sendMessage = () => {
-    socket.emit("message", message);
-    setMessage("");
-    console.log(message);
-  };
-
   return (
     <>
-      <div className="min-h-screen bg-gray-900 text-white">
-        <h1>Sala de mensajes</h1>
-        <MessagesListContainer />
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Escribe un mensaje"
-        />
-        <button onClick={sendMessage}>Enviar mensaje</button>
-        {/* cambiar a componente */}
+      <div className="flex flex-col mx-auto">
+        <div className="fixed inset-0 flex flex-col items-center">
+          <h1 className="text-4xl my-4">Sala de chat</h1>
+          <MessagesListContainer />
+          <Typing />
+        </div>
       </div>
     </>
   );
