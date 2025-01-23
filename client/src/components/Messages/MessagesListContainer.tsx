@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 const socket = io("http://localhost:8080"); //cambiar a URL
 
 const MessagesListContainer: React.FC = () => {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     socket.on("message", (data) => {
@@ -20,8 +20,9 @@ const MessagesListContainer: React.FC = () => {
 
   return (
     <>
-      <h2>MessagesListContainer</h2>;
-      <MessagesList messages={messages} />
+      <div className="flex flex-col bg-white border rounded-lg w-full h-full">
+        <MessagesList messages={messages} />
+      </div>
     </>
   );
 };
