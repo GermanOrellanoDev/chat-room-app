@@ -4,10 +4,12 @@ import "./index.css";
 import App from "./App.tsx";
 import Login from "./components/Login/Login.tsx";
 
+const nickname = localStorage.getItem("nickname") || "";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Login>
-      <App />
+      <App nickname={nickname} />
     </Login>
   </StrictMode>
 );
