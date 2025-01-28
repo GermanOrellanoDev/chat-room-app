@@ -29,11 +29,11 @@ const MessagesItem: React.FC<MessagesItemProps> = ({
             : "bg-gradient-to-r from-pink-400 to-rose-500 text-white rounded-bl-none shadow-lg transform hover:scale-[1.02] transition-transform"
         }`}
       >
-        <small className="font-bold text-lg underline text-white">
+        <small className="font-bold text-base sm:text-lg md:text-xl underline text-white">
           {nickname}
         </small>
-        <p className="text-base break-words">{content}</p>
-        <small className="text-gray-300 text-xs">
+        <p className="text-base sm:text-lg md:text-xl break-words">{content}</p>
+        <small className="text-gray-300 text-xs sm:text-base md:text-lg">
           {new Date(timestamp).toLocaleTimeString()}
         </small>
       </div>
