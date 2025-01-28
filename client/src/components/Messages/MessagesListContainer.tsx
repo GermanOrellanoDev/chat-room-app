@@ -27,7 +27,7 @@ const MessagesListContainer: React.FC<MessagesListContainerProps> = ({
 
   return (
     <>
-      <div className="fixed inset-0 flex flex-col bg-white">
+      <div className="fixed inset-0 flex flex-col bg-gradient-to-br from-purple-50 to-pink-50">
         <MessagesList messages={messages} nickname={nickname} />
         <Typing />
       </div>

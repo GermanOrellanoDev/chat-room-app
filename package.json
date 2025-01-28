@@ -8,5 +8,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/emoji-mart": "^3.0.14"
+  },
+  "dependencies": {
+    "emoji-picker-react": "^4.12.0"
+  }
 }
