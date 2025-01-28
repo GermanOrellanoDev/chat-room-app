@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 httpServer.listen(PORT, () => {
   console.log(`Server ready on port: ${PORT}`);
 });
