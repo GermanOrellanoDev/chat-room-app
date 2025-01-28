@@ -4,7 +4,7 @@ import MessagesList from "./MessagesList";
 import { io } from "socket.io-client";
 import Typing from "../Typing/Typing";
 
-const socket = io("http://localhost:8080"); //cambiar a URL
+const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 interface MessagesListContainerProps {
   nickname: string;
