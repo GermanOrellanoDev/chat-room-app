@@ -6,7 +6,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import Picker from "emoji-picker-react";
 import "emoji-picker-react";
 
-const socket = io("http://chat-room-app-production.up.railway.app");
+const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 const Typing: React.FC = () => {
   const [message, setMessage] = useState<string>("");
