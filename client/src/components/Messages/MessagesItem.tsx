@@ -25,11 +25,11 @@ const MessagesItem: React.FC<MessagesItemProps> = ({
       <div
         className={`max-w-[70%] rounded-lg p-3 ${
           isSelf
-            ? "bg-blue-600 text-white rounded-br-none"
-            : "bg-gray-300 text-gray-800 rounded-bl-none"
+            ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-br-none shadow-lg transform hover:scale-[1.02] transition-transform"
+            : "bg-gradient-to-r from-pink-400 to-rose-500 text-white rounded-bl-none shadow-lg transform hover:scale-[1.02] transition-transform"
         }`}
       >
-        <small className="font-bold text-xs underline text-blue-950">
+        <small className="font-bold text-lg underline text-white">
           {nickname}
         </small>
         <p className="text-base break-words">{content}</p>
