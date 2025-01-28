@@ -4,10 +4,14 @@ import { Server } from "socket.io";
 import cors from "cors";
 
 const app = express();
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://chat-room-app-production.up.railway.app",
+    origin: [
+      "https://chat-room-app-production.up.railway.app",
+      "https://chat-room-kl656nx88-germans-projects-36e620e1.vercel.app",
+    ],
     methods: ["GET", "POST"],
   },
 });
@@ -15,7 +19,7 @@ const io = new Server(httpServer, {
 app.use(cors());
 app.use(express.json());
 
-app.get("./", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Server ok");
 });
 
