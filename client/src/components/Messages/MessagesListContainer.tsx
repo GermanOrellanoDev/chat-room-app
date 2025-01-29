@@ -4,7 +4,7 @@ import MessagesList from "./MessagesList";
 import { io } from "socket.io-client";
 import Typing from "../Typing/Typing";
 
-const socket = io(import.meta.env.VITE_BACKEND_URL);
+const socket = io("https://chat-room-app-production.up.railway.app");
 
 interface MessagesListContainerProps {
   nickname: string;

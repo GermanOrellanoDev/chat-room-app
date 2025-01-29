@@ -10,7 +10,7 @@ const io = new Server(httpServer, {
   cors: {
     origin: [
       "https://chat-room-app-production.up.railway.app",
-      "https://chat-room-kl656nx88-germans-projects-36e620e1.vercel.app",
+      "https://chat-room-silk.vercel.app",
     ],
     methods: ["GET", "POST"],
   },
