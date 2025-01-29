@@ -16,10 +16,12 @@ const MessagesListContainer: React.FC<MessagesListContainerProps> = ({
   nickname,
 }: MessagesListContainerProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [id, setId] = useState<number>(0);
 
   useEffect(() => {
-    socket.on("message", (data) => {
+    socket.on("message", (data, id) => {
       setMessages((prev) => [...prev, data]);
+      setId(id);
     });
 
     return () => {
@@ -30,7 +32,7 @@ const MessagesListContainer: React.FC<MessagesListContainerProps> = ({
   return (
     <>
       <div className="fixed inset-0 flex flex-col bg-gradient-to-br from-purple-50 to-pink-50">
-        <MessagesList messages={messages} nickname={nickname} />
+        <MessagesList messages={messages} id={id} nickname={nickname} />
         <Typing />
       </div>
     </>

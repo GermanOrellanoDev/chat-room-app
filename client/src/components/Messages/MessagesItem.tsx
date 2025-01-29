@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface MessagesItemProps {
   userId: number;
   nickname: string;
@@ -13,7 +15,12 @@ const MessagesItem: React.FC<MessagesItemProps> = ({
   sender,
   timestamp,
 }: MessagesItemProps) => {
-  const isSelf = sender === userId;
+  const [isSelf, setIsSelf] = useState<boolean>(false);
+
+  if (userId === sender) {
+    setIsSelf(true);
+  }
+
   return (
     <div
       className={`flex ${
@@ -30,7 +37,7 @@ const MessagesItem: React.FC<MessagesItemProps> = ({
         }`}
       >
         <small className="font-bold text-base sm:text-lg md:text-xl underline text-white">
-          {nickname}
+          {userId}
         </small>
         <p className="text-base sm:text-lg md:text-xl break-words">{content}</p>
         <small className="text-gray-300 text-xs sm:text-base md:text-lg">
