@@ -8,15 +8,12 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      "https://chat-room-app-production.up.railway.app",
-      "https://chat-room-silk.vercel.app",
-    ],
+    origin: "https://chat-room-silk.vercel.app",
     methods: ["GET", "POST"],
   },
 });
 
-app.use(cors());
+app.use(cors({ origin: "https://chat-room-silk.vercel.app" }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
