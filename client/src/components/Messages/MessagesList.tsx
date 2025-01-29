@@ -5,13 +5,11 @@ import MessagesItem from "./MessagesItem";
 interface MessagesListProps {
   messages: Message[];
   nickname: string;
-  id: number;
 }
 
 const MessagesList: React.FC<MessagesListProps> = ({
   messages,
   nickname,
-  id,
 }: MessagesListProps) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -24,7 +22,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
       {messages.map((msg, index) => (
         <MessagesItem
           key={index}
-          userId={id}
+          userId={msg.userId}
           nickname={nickname}
           content={msg.content}
           sender={msg.sender}
