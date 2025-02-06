@@ -13,7 +13,11 @@ const io = new Server(httpServer, {
   },
 });
 
-app.use(cors({ origin: "https://chat-room-silk.vercel.app" }));
+app.use(
+  cors({
+    origin: "https://chat-room-silk.vercel.app",
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -21,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
+  io.emit("connection", socket.id);
   console.log(`Usuario conectado: ${socket.id}`);
 
   socket.on("message", (data) => {

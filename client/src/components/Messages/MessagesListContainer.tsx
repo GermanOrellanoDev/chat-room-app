@@ -23,6 +23,7 @@ const MessagesListContainer: React.FC<MessagesListContainerProps> = ({
     });
 
     return () => {
+      socket.off("connection");
       socket.off("message");
     };
   }, []);

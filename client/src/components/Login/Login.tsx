@@ -12,7 +12,7 @@ const Login: React.FC<LoginProps> = ({ children }) => {
   const handleLogin: FormEventHandler = (e) => {
     e.preventDefault();
     if (loginData.trim() !== "") {
-      localStorage.setItem("nickname", loginData);
+      sessionStorage.setItem("nickname", loginData);
       setLoggedIn(true);
     }
   };

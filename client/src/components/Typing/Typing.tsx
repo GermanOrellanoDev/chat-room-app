@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { FaPaperPlane } from "react-icons/fa";
 import { MdEmojiEmotions } from "react-icons/md";
 import { IoMdCloseCircle } from "react-icons/io";
 import Picker from "emoji-picker-react";
 import "emoji-picker-react";
+import { useUser } from "../../contexts/UserContext";
 
 const socket = io("https://chat-room-app-production.up.railway.app", {
   transports: ["websocket", "polling"],
@@ -13,15 +14,27 @@ const socket = io("https://chat-room-app-production.up.railway.app", {
 const Typing: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [showEmoji, setShowEmoji] = useState<boolean>(false);
+  const { userId } = useUser();
+
+  const pickerRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = () => {
     if (!message.trim()) return;
 
+    const nickname = sessionStorage.getItem("nickname") || "Anon";
+
+    console.log(
+      "Enviando mensaje con userId:",
+      userId,
+      "y nickname: ",
+      nickname
+    );
+
     const newMessage = {
-      userId: socket.id,
+      userId,
+      nickname,
       content: message,
-      sender: socket.id, //cambiar
-      timestamp: new Date(),
+      timestamp: new Date().toString(),
     };
 
     socket.emit("message", newMessage);
@@ -32,6 +45,29 @@ const Typing: React.FC = () => {
     setMessage((prev) => prev + emoji.emoji);
   };
 
+  const toggleEmojiPicker = () => setShowEmoji((prev) => !prev);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        pickerRef.current &&
+        !pickerRef.current.contains(event.target as Node)
+      ) {
+        setShowEmoji(false);
+      }
+    };
+
+    if (showEmoji) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showEmoji]);
+
   return (
     <div className="relative flex items-center w-full gap-1 p-2 md:gap-2 md:p-4">
       <input
@@ -39,6 +75,7 @@ const Typing: React.FC = () => {
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         placeholder="Escribe un mensaje...✍🏼"
         maxLength={500}
       />
@@ -51,7 +88,7 @@ const Typing: React.FC = () => {
       </button>
       <button
         className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 ease-in-out"
-        onClick={() => setShowEmoji(!showEmoji)}
+        onClick={toggleEmojiPicker}
       >
         {showEmoji ? (
           <IoMdCloseCircle className="w-3 h-3 md:w-5 md:h-5" />
@@ -60,7 +97,10 @@ const Typing: React.FC = () => {
         )}
       </button>
       {showEmoji && (
-        <div className="absolute bottom-full left-1/2 md:right-3 transform -translate-x-1/2 md:-translate-x-2 mb-2 z-50">
+        <div
+          ref={pickerRef}
+          className="absolute bottom-full left-1/2 md:right-3 transform -translate-x-1/2 md:-translate-x-2 mb-2 z-50"
+        >
           <Picker
             className="h-80"
             height={300}
