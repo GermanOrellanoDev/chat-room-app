@@ -1,19 +1,28 @@
+import { useUser } from "../../contexts/UserContext";
+
 interface MessagesItemProps {
-  userId: number;
   nickname: string;
   content: string;
-  sender: number;
   timestamp: Date;
+  senderId: string;
+  senderNickname: string;
 }
 
 const MessagesItem: React.FC<MessagesItemProps> = ({
-  userId,
   nickname,
   content,
-  sender,
   timestamp,
+  senderId,
+  senderNickname,
 }: MessagesItemProps) => {
-  const isSelf = sender === userId;
+  const { userId } = useUser();
+  const isSelf = senderId === userId;
+  const isNicknameSelf = nickname === senderNickname;
+
+  if (isNicknameSelf) {
+    senderNickname = "Tú";
+  }
+
   return (
     <div
       className={`flex ${
@@ -30,7 +39,7 @@ const MessagesItem: React.FC<MessagesItemProps> = ({
         }`}
       >
         <small className="font-bold text-base sm:text-lg md:text-xl underline text-white">
-          {nickname}
+          {senderNickname}
         </small>
         <p className="text-base sm:text-lg md:text-xl break-words">{content}</p>
         <small className="text-gray-300 text-xs sm:text-base md:text-lg">

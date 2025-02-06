@@ -22,11 +22,11 @@ const MessagesList: React.FC<MessagesListProps> = ({
       {messages.map((msg, index) => (
         <MessagesItem
           key={index}
-          userId={msg.userId}
           nickname={nickname}
           content={msg.content}
-          sender={msg.sender}
           timestamp={msg.timestamp}
+          senderId={msg.userId}
+          senderNickname={msg.nickname}
         />
       ))}
       <div ref={messagesEndRef}></div>

@@ -4,7 +4,9 @@ import MessagesList from "./MessagesList";
 import { io } from "socket.io-client";
 import Typing from "../Typing/Typing";
 
-const socket = io("https://chat-room-app-production.up.railway.app");
+const socket = io("https://chat-room-app-production.up.railway.app", {
+  transports: ["websocket", "polling"],
+});
 
 interface MessagesListContainerProps {
   nickname: string;
@@ -21,6 +23,7 @@ const MessagesListContainer: React.FC<MessagesListContainerProps> = ({
     });
 
     return () => {
+      socket.off("connection");
       socket.off("message");
     };
   }, []);

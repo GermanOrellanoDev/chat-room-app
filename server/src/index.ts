@@ -8,15 +8,16 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      "https://chat-room-app-production.up.railway.app",
-      "https://chat-room-silk.vercel.app",
-    ],
+    origin: "https://chat-room-silk.vercel.app",
     methods: ["GET", "POST"],
   },
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://chat-room-silk.vercel.app",
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
+  io.emit("connection", socket.id);
   console.log(`Usuario conectado: ${socket.id}`);
 
   socket.on("message", (data) => {
